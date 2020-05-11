@@ -1,0 +1,2 @@
+rootProject.name='Nat-Pet Gallery'
+include ':app'
