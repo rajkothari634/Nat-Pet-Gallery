@@ -44,22 +44,48 @@ public class MainActivity extends AppCompatActivity {
 
         viewPager.setAdapter(new MainFragsPagerAdapter(getSupportFragmentManager()));
         viewPager.setCurrentItem(0);
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+
+        tabLayout.addOnTabSelectedListener(
+                new TabLayout.ViewPagerOnTabSelectedListener(viewPager) {
+
+                    @Override
+                    public void onTabSelected(TabLayout.Tab tab) {
+                        super.onTabSelected(tab);
+                        viewPager.setCurrentItem(tab.getPosition());
+                    }
+
+                    @Override
+                    public void onTabUnselected(TabLayout.Tab tab) {
+                        super.onTabUnselected(tab);
+
+                    }
+
+                    @Override
+                    public void onTabReselected(TabLayout.Tab tab) {
+                        super.onTabReselected(tab);
+                    }
+                }
+        );
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
-            public void onTabSelected(TabLayout.Tab tab) {
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
             }
 
             @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
+            public void onPageSelected(int position) {
+                tabLayout.getTabAt(position).select();
             }
 
             @Override
-            public void onTabReselected(TabLayout.Tab tab) {
+            public void onPageScrollStateChanged(int state) {
 
             }
         });
+
+
+
+
 
         String url = "https://api.unsplash.com/collections/1580860/photos/?client_id=9GFLmPQY7sbfnE2QSXJdgQjgKlRh6OZRvFkugRxYjkE";
 
