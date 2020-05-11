@@ -82,44 +82,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
-
-
-
-
-        String url = "https://api.unsplash.com/collections/1580860/photos/?client_id=9GFLmPQY7sbfnE2QSXJdgQjgKlRh6OZRvFkugRxYjkE";
-
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
-                (Request.Method.GET, url,null, new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        //responseText.setText("Response: " + response.toString());
-                    }
-                }, new Response.ErrorListener() {
-
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        // TODO: Handle error
-                        //responseText.setText("Response: " + error);
-                    }
-                });
-        jsonObjectRequest.setRetryPolicy(new RetryPolicy() {
-            @Override
-            public int getCurrentTimeout() {
-                return 50000;
-            }
-
-            @Override
-            public int getCurrentRetryCount() {
-                return 50000;
-            }
-
-            @Override
-            public void retry(VolleyError error) throws VolleyError {
-
-            }
-        });
-        MySingleTon.getInstance(this).addToRequestQue(jsonObjectRequest);
     }
     class MainFragsPagerAdapter extends FragmentPagerAdapter {
 
