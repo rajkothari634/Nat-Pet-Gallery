@@ -36,9 +36,30 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        petFragment = new PetFragment();
+        natureFragment = new NatureFragment();
         viewPager = findViewById(R.id.viewPager);
         tabLayout = findViewById(R.id.tabLayout);
         //responseText = findViewById(R.id.response);
+
+        viewPager.setAdapter(new MainFragsPagerAdapter(getSupportFragmentManager()));
+        viewPager.setCurrentItem(0);
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
 
         String url = "https://api.unsplash.com/collections/1580860/photos/?client_id=9GFLmPQY7sbfnE2QSXJdgQjgKlRh6OZRvFkugRxYjkE";
 
@@ -80,8 +101,8 @@ public class MainActivity extends AppCompatActivity {
 
         public MainFragsPagerAdapter(FragmentManager fm) {
             super(fm);
-            fragments.add(addRequestFragment);
-            fragments.add(noticesFragment);
+            fragments.add(petFragment);
+            fragments.add(natureFragment);
         }
 
         @Override
