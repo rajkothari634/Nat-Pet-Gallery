@@ -29,8 +29,8 @@ ImageView img;
         setContentView(R.layout.activity_main);
 
         img = findViewById(R.id.image);
-        petFragment = new ImageFragment("https://api.unsplash.com/collections/1580860/photos/?client_id=9GFLmPQY7sbfnE2QSXJdgQjgKlRh6OZRvFkugRxYjkE");
-        natureFragment = new ImageFragment("https://api.unsplash.com/collections/139386/photos/?client_id=9GFLmPQY7sbfnE2QSXJdgQjgKlRh6OZRvFkugRxYjkE");
+        petFragment = new ImageFragment("https://api.unsplash.com/collections/139386/photos/?client_id=9GFLmPQY7sbfnE2QSXJdgQjgKlRh6OZRvFkugRxYjkE");
+        natureFragment = new ImageFragment("https://api.unsplash.com/collections/1580860/photos/?client_id=9GFLmPQY7sbfnE2QSXJdgQjgKlRh6OZRvFkugRxYjkE");
         viewPager = findViewById(R.id.viewPager);
         tabLayout = findViewById(R.id.tabLayout);
         //responseText = findViewById(R.id.response);
