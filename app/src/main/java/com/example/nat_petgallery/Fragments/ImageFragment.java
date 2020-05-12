@@ -1,5 +1,6 @@
 package com.example.nat_petgallery.Fragments;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,10 +17,12 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.nat_petgallery.Adapters.RecyclerAdapterGallery;
 import com.example.nat_petgallery.Classes.ImageData;
+import com.example.nat_petgallery.Classes.MySingleTon;
 import com.example.nat_petgallery.R;
 
 import org.json.JSONArray;
@@ -94,6 +97,7 @@ public class ImageFragment extends Fragment {
                                 imgdata.setImgName(imageInfo.getString("description"));
                                 imgdata.setImgUrl(imageInfo.getJSONObject("urls").getString("small"));
                                 imgAddress.add(imgdata);
+                                LoadImageFromWebOperations(imgdata.getImgUrl(),imgAddress.size()-1);
                                 //Log.i("response",student.toString());
                             }
                             if(page==1){
@@ -118,5 +122,25 @@ public class ImageFragment extends Fragment {
                 }
         );
         requestQueue.add(jsonArrayRequest);
+    }
+    public void LoadImageFromWebOperations(String url, final int index) {
+
+        final Bitmap[] btm = {null};
+        Log.i("detection","start");
+        ImageRequest request = new ImageRequest(url,
+                new Response.Listener<Bitmap>() {
+                    @Override
+                    public void onResponse(Bitmap bitmap) {
+                        btm[0] = bitmap;
+                        imgAddress.get(index).setBitmap(bitmap);
+                        recyclerAdapterGallery.notifyItemChanged(index);
+                    }
+                }, 0, 0, null,
+                new Response.ErrorListener() {
+                    public void onErrorResponse(VolleyError error) {
+                        Log.i("detection","failed");
+                    }
+                });
+        MySingleTon.getInstance(getActivity()).addToRequestQue(request);
     }
 }
