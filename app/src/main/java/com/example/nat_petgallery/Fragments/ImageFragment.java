@@ -35,6 +35,7 @@ public class ImageFragment extends Fragment {
     RecyclerView imageRecycler;
     RecyclerAdapterGallery recyclerAdapterGallery;
     String url;
+    int page=1;
 
     public ImageFragment(String url){
         this.url = url;
@@ -51,8 +52,27 @@ public class ImageFragment extends Fragment {
         super.onStart();
         imgAddress = new ArrayList<>();
         imageRecycler = getView().findViewById(R.id.imageRecycler);
-        imageRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
-        populateRecycler(url);
+        final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+        imageRecycler.setLayoutManager(linearLayoutManager);
+        populateRecycler(url + "&page=" + page);
+        RecyclerView.OnScrollListener recyclerViewOnScrollListener = new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                int totalItemCount = linearLayoutManager.getItemCount();
+                int lastVisibleItemPosition = linearLayoutManager.findLastVisibleItemPosition();
+                if(totalItemCount==lastVisibleItemPosition+1){
+                    populateRecycler(url + "&page=" + page);
+                    page = page + 1;
+                }
+            }
+        };
+        imageRecycler.setOnScrollListener(recyclerViewOnScrollListener);
     }
 
     public void populateRecycler(String url){
@@ -76,8 +96,13 @@ public class ImageFragment extends Fragment {
                                 imgAddress.add(imgdata);
                                 //Log.i("response",student.toString());
                             }
-                            recyclerAdapterGallery = new RecyclerAdapterGallery(getActivity(), imgAddress);
-                            imageRecycler.setAdapter(recyclerAdapterGallery);
+                            if(page==1){
+                                recyclerAdapterGallery = new RecyclerAdapterGallery(getActivity(), imgAddress);
+                                imageRecycler.setAdapter(recyclerAdapterGallery);
+                                page = page + 1;
+                            }else{
+                                recyclerAdapterGallery.notifyDataSetChanged();
+                            }
                             Log.i("responsedata", String.valueOf(imgAddress.size()));
                         }catch (JSONException e){
                             Log.i("response",e.toString());
