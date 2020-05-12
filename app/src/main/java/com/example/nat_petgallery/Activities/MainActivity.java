@@ -7,19 +7,11 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
+import android.widget.ImageView;
 
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.RetryPolicy;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.example.nat_petgallery.Classes.MySingleTon;
-import com.example.nat_petgallery.Fragments.NatureFragment;
-import com.example.nat_petgallery.Fragments.PetFragment;
+import com.example.nat_petgallery.Fragments.ImageFragment;
 import com.example.nat_petgallery.R;
 import com.google.android.material.tabs.TabLayout;
-
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -28,16 +20,17 @@ public class MainActivity extends AppCompatActivity {
    // TextView responseText;
     ViewPager viewPager;
     TabLayout tabLayout;
-    PetFragment petFragment;
-    NatureFragment natureFragment;
-
+    ImageFragment petFragment;
+    ImageFragment natureFragment;
+ImageView img;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        petFragment = new PetFragment();
-        natureFragment = new NatureFragment();
+        img = findViewById(R.id.image);
+        petFragment = new ImageFragment("https://api.unsplash.com/collections/1580860/photos/?client_id=9GFLmPQY7sbfnE2QSXJdgQjgKlRh6OZRvFkugRxYjkE");
+        natureFragment = new ImageFragment("https://api.unsplash.com/collections/139386/photos/?client_id=9GFLmPQY7sbfnE2QSXJdgQjgKlRh6OZRvFkugRxYjkE");
         viewPager = findViewById(R.id.viewPager);
         tabLayout = findViewById(R.id.tabLayout);
         //responseText = findViewById(R.id.response);
