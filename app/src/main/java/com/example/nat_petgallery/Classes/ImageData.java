@@ -1,8 +1,19 @@
 package com.example.nat_petgallery.Classes;
 
+import android.graphics.Bitmap;
+
 public class ImageData {
     public String imgName;
     public String imgUrl;
+    public Bitmap bitmap;
+
+    public Bitmap getBitmap() {
+        return bitmap;
+    }
+
+    public void setBitmap(Bitmap bitmap) {
+        this.bitmap = bitmap;
+    }
 
     public ImageData() {
     }
