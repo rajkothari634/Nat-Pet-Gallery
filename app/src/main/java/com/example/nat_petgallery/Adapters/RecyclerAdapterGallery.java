@@ -51,7 +51,7 @@ public class RecyclerAdapterGallery extends RecyclerView.Adapter<RecyclerAdapter
         if(imageData.getBitmap() != null)
             holder.imgContainer.setImageBitmap(imageData.getBitmap());
         else
-            LoadImageFromWebOperations(imageData.getImgUrl(),position);
+            Log.i("checkempty",position + "  require");
 
     }
 
@@ -59,31 +59,31 @@ public class RecyclerAdapterGallery extends RecyclerView.Adapter<RecyclerAdapter
     public int getItemCount() {
         return imgAddress.size();
     }
-    public void LoadImageFromWebOperations(String url, final int index) {
-
-        final Bitmap[] btm = {null};
-        Log.i("detection","start");
-        ImageRequest request = new ImageRequest(url,
-                new Response.Listener<Bitmap>() {
-                    @Override
-                    public void onResponse(Bitmap bitmap) {
-                        btm[0] = bitmap;
-                        imgAddress.get(index).setBitmap(bitmap);
-                    }
-                }, 0, 0, null,
-                new Response.ErrorListener() {
-                    public void onErrorResponse(VolleyError error) {
-                       Log.i("detection","failed");
-                    }
-                });
-
-        MySingleTon.getInstance(this.context).addToRequestQue(request);
-
-
-
-// Access the RequestQueue through your singleton class.
-
-    }
+//    public void LoadImageFromWebOperations(String url, final int index) {
+//
+//        final Bitmap[] btm = {null};
+//        Log.i("detection","start");
+//        ImageRequest request = new ImageRequest(url,
+//                new Response.Listener<Bitmap>() {
+//                    @Override
+//                    public void onResponse(Bitmap bitmap) {
+//                        btm[0] = bitmap;
+//                        imgAddress.get(index).setBitmap(bitmap);
+//                    }
+//                }, 0, 0, null,
+//                new Response.ErrorListener() {
+//                    public void onErrorResponse(VolleyError error) {
+//                       Log.i("detection","failed");
+//                    }
+//                });
+//
+//        MySingleTon.getInstance(this.context).addToRequestQue(request);
+//
+//
+//
+//// Access the RequestQueue through your singleton class.
+//
+//    }
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         public ImageView imgContainer;
